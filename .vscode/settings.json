@@ -3,8 +3,6 @@
   "standard.validate": [
     "javascript",
     "javascriptreact",
-    "typescript",
-    "typescriptreact",
     { "language": "html", "autoFix": true }
   ],
   "standard.options": {
@@ -13,8 +11,9 @@
       "node_modules/**",
       "public/**",
       "docs/**",
-      "*.json",
-      "webpack.config.js"
+      "webpack/*.js",
+      "dist/**",
+      "*.json"
     ],
     "plugins": ["html"],
   },

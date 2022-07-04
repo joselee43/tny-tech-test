@@ -1,12 +1,11 @@
 const path = require('path');
-const babelConfig = require('./babel.config.json');
+const babelConfig = require('../babel.config.json');
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
+  entry: path.resolve(__dirname, '../src/index.js'),
   output: {
     filename: 'app.js',
-    path: path.resolve(__dirname, './public/js')
+    path: path.resolve(__dirname, '../public/js')
   },
   module: {
     rules: [
