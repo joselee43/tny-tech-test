@@ -1,0 +1,22 @@
+{
+  "explorer.compactFolders": false,
+  "standard.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    { "language": "html", "autoFix": true }
+  ],
+  "standard.options": {
+    "globals": [],
+    "ignore": [
+      "node_modules/**",
+      "public/**",
+      "docs/**",
+      "*.json",
+      "webpack.config.js"
+    ],
+    "plugins": ["html"],
+  },
+  "standard.enable": true
+}
