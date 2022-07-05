@@ -1,10 +1,12 @@
 import * as dotenv from 'dotenv';
 import * as http from 'http';
-import Server from './server';
 
 dotenv.config();
 
-const port = normalizePort(process.env.PORT || "8080");
+import Server from './server';
+import config from './config/index';
+
+const port = normalizePort(config.get('port'));
 
 
 /**
@@ -23,7 +25,7 @@ const server = http.createServer(app);
 /**
  * Update keepAliveTimeout and headersTimeout directive
  */
-const keepAliveTimeout = Number(process.env.KEEP_ALIVE_TIMEOUT);
+const keepAliveTimeout = Number(config.get('keepAliveTimeout'));
 if (!isNaN(keepAliveTimeout) && keepAliveTimeout > 0) {
   server.keepAliveTimeout = keepAliveTimeout * 1000;
   server.headersTimeout = (keepAliveTimeout + 4) * 1000; // This should be bigger than `keepAliveTimeout + your server's expected response time`

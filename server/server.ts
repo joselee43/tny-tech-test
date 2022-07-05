@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as cors from 'cors';
 import * as path from 'path';
+import NewsController from './controllers/NewsController';
 
 class Server {
   app: express.Express = null;
@@ -40,6 +41,11 @@ class Server {
   }
 
   configureControllers() {
+    const apiRouter: express.Router = express.Router()
+
+    apiRouter.use('/news', new NewsController().router)
+
+    this.app.use('/api', apiRouter)
   }
 }
 
