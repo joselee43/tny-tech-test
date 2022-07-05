@@ -67,7 +67,7 @@ function NewsCard (props) {
         loading
           ? (
             <EuiLoadingContentWrapper padding={useEuiPaddingSize('m')}>
-              <EuiLoadingContent lines={3} />
+              <EuiLoadingContent lines={5} />
             </EuiLoadingContentWrapper>
             )
           : (
@@ -90,7 +90,6 @@ function NewsCard (props) {
               <EuiImageWrapper>
                 <EuiImage
                   size='fullWidth'
-                  hasShadow
                   alt='News image'
                   src={data.urlToImage}
                 />
