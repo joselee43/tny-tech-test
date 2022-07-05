@@ -41,7 +41,7 @@ const SummarySectionContent = styled.div`
 const EuiTextExt = styled(EuiText)`
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: ${props => props.maxLines || 2};
+  -webkit-line-clamp: ${props => props.maxlines || 2};
   -webkit-box-orient: vertical;
 `
 
@@ -57,7 +57,7 @@ function NewsCard (props) {
   const { data } = props
 
   return (
-    <EuiCard layout='horizontal' paddingSize='none'>
+    <EuiCard layout='horizontal' title='' paddingSize='none'>
       <EuiCardContent>
         <SummarySection>
           <SummarySectionContent padding={useEuiPaddingSize('m')}>
@@ -65,11 +65,11 @@ function NewsCard (props) {
               {data.title}
             </EuiTextExt>
             <EuiSpacer size='s' />
-            <EuiTextExt size='m' maxLines={2} style={{ fontWeight: 'bold' }}>
+            <EuiTextExt size='m' maxlines={2} style={{ fontWeight: 'bold' }}>
               {data.description}
             </EuiTextExt>
             <EuiSpacer size='s' />
-            <EuiTextExt size='xs' maxLines={3}>
+            <EuiTextExt size='xs' maxlines={3}>
               {data.content}
             </EuiTextExt>
           </SummarySectionContent>
