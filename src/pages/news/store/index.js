@@ -1,11 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 import ApiService from '@app/services/apiService'
 
-export const fetchData = () => async (dispatch, getState) => {
+export const fetchData = (params) => async (dispatch, getState) => {
+  const { reset } = params || {}
   dispatch(setLoading(true))
   dispatch(setError(''))
-  const { config: { pageSize }, pages: { news: { page } } } = getState()
-  ApiService.fetchNews(pageSize, page)
+  if (reset) {
+    dispatch(setPage(0))
+    dispatch(resetData([]))
+  }
+  const { config: { pageSize }, pages: { news: { page, search } } } = getState()
+  ApiService.fetchNews(search, pageSize, page + 1)
     .then(data => {
       const { /* totalResults, */ articles } = data
       dispatch(setPage(page + 1))
@@ -22,7 +27,8 @@ export const fetchData = () => async (dispatch, getState) => {
 const initialState = {
   loading: false,
   error: '',
-  page: 1,
+  page: 0,
+  search: '',
   data: []
 }
 
@@ -38,20 +44,26 @@ const newsSlice = createSlice({
     },
     setPage: (state, action) => {
       const page = parseInt(action.payload)
-      if (!isNaN(page) && page > 0) {
+      if (!isNaN(page) && page >= 0) {
         state.page = page
       }
+    },
+    setSearch: (state, action) => {
+      state.search = action.payload
     },
     setData: (state, action) => {
       state.data = [
         ...state.data,
         ...action.payload
       ]
+    },
+    resetData: (state, action) => {
+      state.data = []
     }
   },
   extraReducers: {}
 })
 
-export const { setLoading, setError, setPage, setData } = newsSlice.actions
+export const { setLoading, setError, setPage, setSearch, setData, resetData } = newsSlice.actions
 
 export default newsSlice.reducer

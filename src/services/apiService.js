@@ -1,10 +1,11 @@
 import axios from 'axios'
 
 class ApiService {
-  fetchNews (pageSize, page) {
+  fetchNews (search, pageSize, page) {
     return new Promise((resolve, reject) => {
       axios.get('/api/news', {
         params: {
+          q: search,
           pageSize,
           page
         }

@@ -19,8 +19,10 @@ function News () {
   const state = useSelector(({ pages }) => pages.news)
 
   useEffect(() => {
-    dispatch(fetchData())
-  }, [])
+    dispatch(fetchData({
+      reset: true
+    }))
+  }, [state.search])
 
   const onClickLoadMore = () => {
     dispatch(fetchData())
