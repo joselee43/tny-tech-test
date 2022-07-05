@@ -1,5 +1,8 @@
 import React, { Fragment, useEffect } from 'react'
 import {
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiLink,
   EuiSpacer,
   EuiToast,
   useEuiPaddingSize
@@ -18,6 +21,10 @@ function News () {
   useEffect(() => {
     dispatch(fetchData())
   }, [])
+
+  const onClickLoadMore = () => {
+    dispatch(fetchData())
+  }
 
   return (
     <ContentContainer style={{
@@ -44,6 +51,19 @@ function News () {
             <EuiSpacer />
           </Fragment>
         ))
+      }
+      {
+        state.loading
+          ? <NewsCard loading />
+          : (
+            <EuiFlexGroup justifyContent='spaceAround'>
+              <EuiFlexItem grow={false}>
+                <EuiLink onClick={onClickLoadMore}>
+                  Load more ...
+                </EuiLink>
+              </EuiFlexItem>
+            </EuiFlexGroup>
+            )
       }
     </ContentContainer>
   )

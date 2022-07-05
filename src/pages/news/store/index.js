@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
-import ApiService from '../../../services/apiService'
+import ApiService from '@app/services/apiService'
 
 export const fetchData = () => async (dispatch, getState) => {
   dispatch(setLoading(true))
   dispatch(setError(''))
-  ApiService.fetchNews()
+  const { config: { pageSize }, pages: { news: { page } } } = getState()
+  ApiService.fetchNews(pageSize, page)
     .then(data => {
       const { /* totalResults, */ articles } = data
+      dispatch(setPage(page + 1))
       return dispatch(setData(articles))
     })
     .catch(error => {
@@ -20,6 +22,7 @@ export const fetchData = () => async (dispatch, getState) => {
 const initialState = {
   loading: false,
   error: '',
+  page: 1,
   data: []
 }
 
@@ -33,6 +36,12 @@ const newsSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload
     },
+    setPage: (state, action) => {
+      const page = parseInt(action.payload)
+      if (!isNaN(page) && page > 0) {
+        state.page = page
+      }
+    },
     setData: (state, action) => {
       state.data = [
         ...state.data,
@@ -43,6 +52,6 @@ const newsSlice = createSlice({
   extraReducers: {}
 })
 
-export const { setLoading, setError, setData } = newsSlice.actions
+export const { setLoading, setError, setPage, setData } = newsSlice.actions
 
 export default newsSlice.reducer

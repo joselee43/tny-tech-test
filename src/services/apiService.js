@@ -1,9 +1,14 @@
 import axios from 'axios'
 
 class ApiService {
-  fetchNews () {
+  fetchNews (pageSize, page) {
     return new Promise((resolve, reject) => {
-      axios.get('/api/news')
+      axios.get('/api/news', {
+        params: {
+          pageSize,
+          page
+        }
+      })
         .then(response => {
           resolve(response.data)
         })

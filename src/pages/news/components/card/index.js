@@ -2,6 +2,7 @@ import React from 'react'
 import {
   EuiCard,
   EuiImage,
+  EuiLoadingContent,
   EuiSpacer,
   EuiText,
   useEuiPaddingSize
@@ -53,36 +54,50 @@ const EuiImageWrapper = styled.div`
   }
 `
 
+const EuiLoadingContentWrapper = styled.div`
+  padding: ${props => props.padding};
+`
+
 function NewsCard (props) {
-  const { data } = props
+  const { data, loading } = props
 
   return (
     <EuiCard layout='horizontal' title='' paddingSize='none'>
-      <EuiCardContent>
-        <SummarySection>
-          <SummarySectionContent padding={useEuiPaddingSize('m')}>
-            <EuiTextExt size='xs' color='subdued'>
-              {data.title}
-            </EuiTextExt>
-            <EuiSpacer size='s' />
-            <EuiTextExt size='m' maxlines={2} style={{ fontWeight: 'bold' }}>
-              {data.description}
-            </EuiTextExt>
-            <EuiSpacer size='s' />
-            <EuiTextExt size='xs' maxlines={3}>
-              {data.content}
-            </EuiTextExt>
-          </SummarySectionContent>
-        </SummarySection>
-        <EuiImageWrapper>
-          <EuiImage
-            size='fullWidth'
-            hasShadow
-            alt='News image'
-            src={data.urlToImage}
-          />
-        </EuiImageWrapper>
-      </EuiCardContent>
+      {
+        loading
+          ? (
+            <EuiLoadingContentWrapper padding={useEuiPaddingSize('m')}>
+              <EuiLoadingContent lines={3} />
+            </EuiLoadingContentWrapper>
+            )
+          : (
+            <EuiCardContent>
+              <SummarySection>
+                <SummarySectionContent padding={useEuiPaddingSize('m')}>
+                  <EuiTextExt size='xs' color='subdued'>
+                    {data.title}
+                  </EuiTextExt>
+                  <EuiSpacer size='s' />
+                  <EuiTextExt size='m' maxlines={2} style={{ fontWeight: 'bold' }}>
+                    {data.description}
+                  </EuiTextExt>
+                  <EuiSpacer size='s' />
+                  <EuiTextExt size='xs' maxlines={3}>
+                    {data.content}
+                  </EuiTextExt>
+                </SummarySectionContent>
+              </SummarySection>
+              <EuiImageWrapper>
+                <EuiImage
+                  size='fullWidth'
+                  hasShadow
+                  alt='News image'
+                  src={data.urlToImage}
+                />
+              </EuiImageWrapper>
+            </EuiCardContent>
+            )
+      }
     </EuiCard>
   )
 }
