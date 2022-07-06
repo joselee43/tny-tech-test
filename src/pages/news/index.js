@@ -1,18 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
-  EuiFlexGroup,
-  EuiFlexItem,
-  EuiLink,
-  EuiSpacer,
-  EuiToast,
   useEuiPaddingSize
 } from '@elastic/eui'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import SearchBar from './components/search-bar'
-import NewsCard from './components/card'
-import CategoryBar from './components/category-bar'
+import Content from './components/page-content'
 import ContentContainer from '@app/shared-components/content-container'
 import { fetchData } from './store'
 import { Categories } from '@app/utils/constant'
@@ -59,42 +52,13 @@ function News () {
       paddingTop: useEuiPaddingSize('l')
     }}
     >
-      <CategoryBar active={activeCategory} />
-      <EuiSpacer size='s' />
-      <SearchBar />
-      <EuiSpacer />
-      {
-        state.error &&
-          <>
-            <EuiToast
-              title={state.error}
-              color='danger'
-              iconType='alert'
-            />
-            <EuiSpacer size='s' />
-          </>
-      }
-      {
-        state.data.map((item, index) => (
-          <Fragment key={index}>
-            <NewsCard data={item} />
-            <EuiSpacer />
-          </Fragment>
-        ))
-      }
-      {
-        state.loading
-          ? <NewsCard loading />
-          : (
-            <EuiFlexGroup justifyContent='spaceAround' responsive={false}>
-              <EuiFlexItem grow={false}>
-                <EuiLink onClick={onClickLoadMore}>
-                  Load more ...
-                </EuiLink>
-              </EuiFlexItem>
-            </EuiFlexGroup>
-            )
-      }
+      <Content
+        data={state.data}
+        loading={state.loading}
+        error={state.error}
+        category={activeCategory}
+        onClickLoadMore={onClickLoadMore}
+      />
     </ContentContainer>
   )
 }

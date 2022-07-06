@@ -88,7 +88,10 @@ module.exports = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    '^@app(.*)$': '<rootDir>/src/$1',
+    '\\.(css|less|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -132,7 +135,9 @@ module.exports = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: [],
+  setupFiles: [
+    '<rootDir>/src/setupTests.js'
+  ],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   // setupFilesAfterEnv: [],
@@ -174,7 +179,8 @@ module.exports = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.tsx?$': 'ts-jest'
+    '^.+\\.tsx?$': 'ts-jest',
+    '\\.[jt]sx?$': 'babel-jest'
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation

@@ -9,10 +9,13 @@
     "globals": [],
     "ignore": [
       "node_modules/**",
+      "__tests__/**",
+      "__mocks__/**",
       "public/**",
       "docs/**",
       "webpack/*.js",
       "dist/**",
+      "jest.config.js",
       "*.json"
     ],
     "plugins": ["html"],
