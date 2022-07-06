@@ -6,7 +6,6 @@ import {
   EuiPanel,
   EuiSpacer,
   EuiText,
-  useEuiPaddingSize,
   useEuiTheme
 } from '@elastic/eui'
 import styled from 'styled-components'
@@ -39,7 +38,7 @@ const FooterItemsWrapper = styled.div`
   }
 `
 
-const FooterItemsTitle = styled(EuiText)`
+const FooterItemTitle = styled(EuiText)`
   margin-left: 16px;
 
   @media (max-width: 768px) {
@@ -52,7 +51,7 @@ const EuiFooterItem = (props) => {
 
   return (
     <EuiPanel paddingSize='m' hasShadow={false} color='transparent'>
-      <FooterItemsTitle size='xs'>{title}</FooterItemsTitle>
+      <FooterItemTitle size='xs'>{title}</FooterItemTitle>
       <EuiSpacer size='m' />
       {
         lines.map((line, index) => (

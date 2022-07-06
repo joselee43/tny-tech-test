@@ -58,7 +58,7 @@ function News () {
         state.loading
           ? <NewsCard loading />
           : (
-            <EuiFlexGroup justifyContent='spaceAround'>
+            <EuiFlexGroup justifyContent='spaceAround' responsive={false}>
               <EuiFlexItem grow={false}>
                 <EuiLink onClick={onClickLoadMore}>
                   Load more ...
