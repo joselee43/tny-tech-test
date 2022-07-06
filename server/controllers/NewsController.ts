@@ -17,6 +17,12 @@ class NewsController {
   configure () {
     /**
      * GET: get news list
+     * 
+     * Query params:
+     *  c: category                 (String)
+     *  q: search query             (String)
+     *  pageSize: page size         (Number)
+     *  page: page number to fetch  (Number)
      */
     this.router.get('/',
       query('c')
@@ -31,64 +37,66 @@ class NewsController {
       query('page')
         .optional({checkFalsy: true})
         .isInt({ min: 1 }),
-      async (req: express.Request, res: express.Response, next) => {
-        let status = 'error';
-        let error = null;
-
-        // Validate request payload
-        const validationErrors = validationResult(req);
-        if (!validationErrors.isEmpty()) {
-          error = 'Invalid request payload'
-          return res.status(400).json({
-            status,
-            error
-          })
-        }
-
-        // API query values
-        let c = req.query['c'] || ''
-        let q = req.query['q'] || ''
-        let pageSize = config.get('newsapiMaxPageSize')
-        let page = req.query['page'] || 1
-
-        if (req.query['pageSize']) {
-          pageSize = Math.min(pageSize, Number(req.query['pageSize']))
-        }
-
-        try {
-          let apiFunc: Function = null
-          let payload = {
-            q,
-            searchIn: 'title,description',
-            language: 'en',
-            sortBy: 'publishedAt',
-            pageSize,
-            page,
-          }
-
-          if (c) {
-            payload['category'] = c
-            apiFunc = newsapi.v2.topHeadlines
-          } else {
-            if (!q) {
-              payload['q'] = 'bitcoin'
-            }
-            apiFunc = newsapi.v2.everything
-          }
-          const response = await apiFunc(payload)
-          status = 'ok';
-          const { totalResults, articles } = response;
-          return res.json({
-            status,
-            totalResults,
-            articles
-          })
-        } catch (e) {
-          console.log(e)
-          return next(e)
-        }
-      }
+      this.getNewsList.bind(this)
     );
+  }
+
+  async getNewsList (req: express.Request, res: express.Response, next) {
+    let status = 'error';
+    let error = null;
+
+    // Validate request payload
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+      error = 'Invalid request payload'
+      return res.status(400).json({
+        status,
+        error
+      })
+    }
+
+    // API query values
+    let c = req.query['c'] || ''
+    let q = req.query['q'] || ''
+    let pageSize = config.get('newsapiMaxPageSize')
+    let page = req.query['page'] || 1
+
+    if (req.query['pageSize']) {
+      pageSize = Math.min(pageSize, Number(req.query['pageSize']))
+    }
+
+    try {
+      let apiFunc: Function = null
+      let payload = {
+        q,
+        searchIn: 'title,description',
+        language: 'en',
+        sortBy: 'publishedAt',
+        pageSize,
+        page,
+      }
+
+      if (c) {
+        payload['category'] = c
+        apiFunc = newsapi.v2.topHeadlines
+      } else {
+        if (!q) {
+          payload['q'] = 'bitcoin'
+        }
+        apiFunc = newsapi.v2.everything
+      }
+      const response = await apiFunc(payload)
+      status = 'ok';
+      const { totalResults, articles } = response;
+      return res.json({
+        status,
+        totalResults,
+        articles
+      })
+    } catch (e) {
+      console.log(e)
+      return next(e)
+    }
   }
 }
 
