@@ -20,11 +20,11 @@ class Server {
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(express.static(path.join(__dirname, '../public')))
 
-    this.app.get('/', async (req: express.Request, res: express.Response) => {
+    this.configureControllers();
+
+    this.app.get('*', async (req: express.Request, res: express.Response) => {
       res.sendFile(path.join(__dirname, '../public/index.html'))
     })
-
-    this.configureControllers();
 
     // error handler
     this.app.use(function (err, req, res, next) {

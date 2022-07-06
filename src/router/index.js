@@ -1,13 +1,17 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import News from '../pages/news'
-import NewsDetail from '../pages/news-detail'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import News from '@app/pages/news'
+import NotFound from '@app/pages/404'
 
 function AppRoutes () {
   return (
     <Routes>
-      <Route exact path='/' element={<News />} />
-      <Route exact path='/news/:id' element={<NewsDetail />} />
+      <Route exact path='/news'>
+        <Route path=':category' element={<News />} />
+        <Route path='' element={<News />} />
+      </Route>
+      <Route exact path='/' element={<Navigate to='/news' />} />
+      <Route path='*' element={<NotFound />} />
     </Routes>
   )
 }
