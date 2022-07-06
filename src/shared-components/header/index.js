@@ -14,6 +14,11 @@ const EuiHeaderWrapper = styled.div`
   box-shadow: 0 0.7px 1.4px rgb(0 0 0 / 7%), 0 1.9px 4px rgb(0 0 0 / 5%), 0 4.5px 10px rgb(0 0 0 / 5%);
   background-color: ${props => props.bgColor || '#FFF'};
   border-bottom: 1px solid #cdd3df;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 99;
 `
 
 const EuiHeader = styled(Container)`

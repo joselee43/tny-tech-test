@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 
 import Content from './components/page-content'
-import ContentContainer from '@app/shared-components/content-container'
+import Container from '@app/shared-components/container'
 import { fetchData } from './store'
 import { Categories } from '@app/utils/constant'
 
@@ -48,9 +48,11 @@ function News () {
   }
 
   return (
-    <ContentContainer style={{
-      paddingTop: useEuiPaddingSize('l')
-    }}
+    <Container
+      narrow
+      style={{
+        paddingTop: useEuiPaddingSize('m')
+      }}
     >
       <Content
         data={state.data}
@@ -59,7 +61,7 @@ function News () {
         category={activeCategory}
         onClickLoadMore={onClickLoadMore}
       />
-    </ContentContainer>
+    </Container>
   )
 }
 

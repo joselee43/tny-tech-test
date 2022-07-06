@@ -26,14 +26,23 @@
   .container-lg, .container-md, .container-sm, .container {
     max-width: 960px;
   }
+  .container-lg.container-narrow, .container-md.container-narrow, .container-sm.container-narrow, .container.container-narrow {
+    max-width: 720px;
+  }
 }
 @media (min-width: 1200px) {
   .container-xl, .container-lg, .container-md, .container-sm, .container {
     max-width: 1140px;
   }
+  .container-xl.container-narrow, .container-lg.container-narrow, .container-md.container-narrow, .container-sm.container-narrow, .container.container-narrow {
+    max-width: 880px;
+  }
 }
 @media (min-width: 1400px) {
   .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
     max-width: 1340px;
+  }
+  .container-xxl.container-narrow, .container-xl.container-narrow, .container-lg.container-narrow, .container-md.container-narrow, .container-sm.container-narrow, .container.container-narrow {
+    max-width: 1020px;
   }
 }

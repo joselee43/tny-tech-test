@@ -9,6 +9,7 @@ import store from '@app/store'
 import Routes from '@app/router'
 import Header from '@app/shared-components/header'
 import Footer from '@app/shared-components/footer'
+import PageContent from '@app/shared-components/page-content'
 
 import theme from './theme.json'
 
@@ -17,11 +18,12 @@ function App () {
     <Provider store={store}>
       <EuiProvider colorMode='light' modify={theme}>
         <Header />
-        <EuiSpacer size='s' />
-        <BrowserRouter basename='/'>
-          <Routes />
-        </BrowserRouter>
-        <EuiSpacer size='m' />
+        <PageContent>
+          <BrowserRouter basename='/'>
+            <Routes />
+          </BrowserRouter>
+          <EuiSpacer size='m' />
+        </PageContent>
         <Footer />
       </EuiProvider>
     </Provider>

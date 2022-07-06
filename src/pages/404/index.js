@@ -4,16 +4,18 @@ import {
   useEuiPaddingSize
 } from '@elastic/eui'
 
-import ContentContainer from '../../shared-components/content-container'
+import Container from '@app/shared-components/container'
 
 function NotFound () {
   return (
-    <ContentContainer style={{
-      paddingTop: useEuiPaddingSize('l')
-    }}
+    <Container
+      narrow
+      style={{
+        paddingTop: useEuiPaddingSize('l')
+      }}
     >
       <EuiText>404 Page Not Found</EuiText>
-    </ContentContainer>
+    </Container>
   )
 }
 
