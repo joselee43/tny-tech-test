@@ -4,7 +4,8 @@ import {
   EuiHeaderLinks,
   EuiHeaderLink,
   EuiText,
-  useEuiTheme
+  useEuiTheme,
+  EuiLink
 } from '@elastic/eui'
 import styled from 'styled-components'
 import Container from '../container'
@@ -22,6 +23,11 @@ const EuiHeader = styled(Container)`
   justify-content: space-between;
 `
 
+const EuiLogoLink = styled(EuiLink)`
+  color: inherit !important;
+  text-Decoration: unset !important;
+`
+
 export default () => {
   const theme = useEuiTheme()
 
@@ -29,7 +35,7 @@ export default () => {
     <EuiHeaderWrapper bgColor={theme.euiTheme.colors.custom.headerBg}>
       <EuiHeader>
         <EuiHeaderSectionItem border='right'>
-          <EuiText>TNY TECH TEST</EuiText>
+          <EuiText><EuiLogoLink href='/'>TNY TECH TEST</EuiLogoLink></EuiText>
         </EuiHeaderSectionItem>
 
         <EuiHeaderSectionItem>

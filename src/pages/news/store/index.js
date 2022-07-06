@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import ApiService from '@app/services/apiService'
 
 export const fetchData = (params) => async (dispatch, getState) => {
-  const { reset } = params || {}
+  const { reset, category } = params || {}
   dispatch(setLoading(true))
   dispatch(setError(''))
   if (reset) {
@@ -10,7 +10,7 @@ export const fetchData = (params) => async (dispatch, getState) => {
     dispatch(resetData([]))
   }
   const { config: { pageSize }, pages: { news: { page, search } } } = getState()
-  ApiService.fetchNews(search, pageSize, page + 1)
+  ApiService.fetchNews(category, search, pageSize, page + 1)
     .then(data => {
       const { /* totalResults, */ articles } = data
       dispatch(setPage(page + 1))

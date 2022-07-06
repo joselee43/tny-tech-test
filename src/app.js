@@ -6,9 +6,9 @@ import '@elastic/eui/dist/eui_theme_light.css'
 
 import store from '@app/store'
 
-import Routes from './router'
-import Header from './shared-components/header'
-import Footer from './shared-components/footer'
+import Routes from '@app/router'
+import Header from '@app/shared-components/header'
+import Footer from '@app/shared-components/footer'
 
 import theme from './theme.json'
 

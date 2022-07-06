@@ -19,6 +19,9 @@ class NewsController {
      * GET: get news list
      */
     this.router.get('/',
+      query('c')
+        .optional({checkFalsy: true})
+        .isString(),
       query('q')
         .optional({checkFalsy: true})
         .isString(),
@@ -43,7 +46,8 @@ class NewsController {
         }
 
         // API query values
-        let q = req.query['q'] || 'bitcoin'
+        let c = req.query['c'] || ''
+        let q = req.query['q'] || ''
         let pageSize = config.get('newsapiMaxPageSize')
         let page = req.query['page'] || 1
 
@@ -52,14 +56,26 @@ class NewsController {
         }
 
         try {
-          const response = await newsapi.v2.everything({
+          let apiFunc: Function = null
+          let payload = {
             q,
             searchIn: 'title,description',
             language: 'en',
             sortBy: 'publishedAt',
             pageSize,
             page,
-          })
+          }
+
+          if (c) {
+            payload['category'] = c
+            apiFunc = newsapi.v2.topHeadlines
+          } else {
+            if (!q) {
+              payload['q'] = 'bitcoin'
+            }
+            apiFunc = newsapi.v2.everything
+          }
+          const response = await apiFunc(payload)
           status = 'ok';
           const { totalResults, articles } = response;
           return res.json({
