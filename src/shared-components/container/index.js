@@ -4,7 +4,7 @@ import styles from './index.module.css'
 function Container (props) {
   const { className, children, narrow } = props
   return (
-    <div {...props} className={`${styles.container} ${narrow ? 'container-narrow' : ''} ${className || ''}`}>
+    <div {...props} className={`${styles.container} ${narrow ? styles['container-narrow'] : ''} ${className || ''}`}>
       {
         children
       }

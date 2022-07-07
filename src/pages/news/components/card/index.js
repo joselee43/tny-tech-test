@@ -8,6 +8,7 @@ import {
   useEuiPaddingSize
 } from '@elastic/eui'
 import styled from 'styled-components'
+import LazyLoad from 'react-lazyload'
 
 const EuiCardContent = styled.div`
   width: 100%;
@@ -88,11 +89,13 @@ function NewsCard (props) {
                 </SummarySectionContent>
               </SummarySection>
               <EuiImageWrapper>
-                <EuiImage
-                  size='fullWidth'
-                  alt='News image'
-                  src={data.urlToImage}
-                />
+                <LazyLoad height={150} once>
+                  <EuiImage
+                    size='fullWidth'
+                    alt='News image'
+                    src={data.urlToImage}
+                  />
+                </LazyLoad>
               </EuiImageWrapper>
             </EuiCardContent>
             )
