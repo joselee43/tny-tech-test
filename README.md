@@ -5,6 +5,7 @@ Simple web application for news browsing built on [Express.js](https://expressjs
 ```sh
 npm install
 ```
+Create **.env** file from **.env.example** and fill in valid values including **NEWSAPI_KEY**. You can create a free account in NewsAPI (https://newsapi.org/) and make use of the api key generated.
 ## Build
 ```sh
 npm run build
